@@ -1,5 +1,6 @@
-from script.Base import Base
 import json
+
+from script.Base import Base
 
 
 class JcLogin(Base):
@@ -26,7 +27,7 @@ class JcLogin(Base):
         # 等待登陆结果
         elif self.state == 1:
             if data:
-                print(self.TAG, 'data=', data)
+                self.showData(data)
                 if data['type'] == 'command' and data['method'] == 'login' and data['return'] is False:
                     self.log('login 调用失败')
                     return 2
@@ -36,7 +37,7 @@ class JcLogin(Base):
 
         elif self.state == 2:
             if data:
-                print(self.TAG, 'data=', data)
+                self.showData(data)
                 if data['type'] == 'callback' and data['method'] == 'onLogin':
                     if data['arg0'] is True:
                         self.log('login 成功')
@@ -55,7 +56,7 @@ class JcLogin(Base):
                         return 2
         elif self.state == 3:
             if data:
-                print(self.TAG, 'data=', data)
+                self.showData(data)
                 if data['type'] == 'command' and data['method'] == 'getState':
                     if data['return'] == 3:
                         self.log('getState 获取值匹配')
@@ -73,7 +74,7 @@ class JcLogin(Base):
                     self.state += 1
         elif self.state == 4:
             if data:
-                print(self.TAG, 'data=', data)
+                self.showData(data)
                 if data['type'] == 'command' and data['method'] == 'getUserId':
                     if data['return'] == 'test001':
                         self.log('getUserId 获取值匹配')
@@ -87,5 +88,3 @@ class JcLogin(Base):
             return 2
 
         return 0
-
-

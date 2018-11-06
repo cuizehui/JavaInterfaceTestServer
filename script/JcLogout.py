@@ -1,5 +1,6 @@
-from script.Base import Base
 import json
+
+from script.Base import Base
 
 
 class JcLogout(Base):
@@ -22,7 +23,7 @@ class JcLogout(Base):
             self.state = 1
         elif self.state == 1:
             if data:
-                print(self.TAG, 'data=', data)
+                self.showData(data)
                 if data['type'] == 'command' and data['method'] == 'logout' and data['return'] is False:
                     self.log('logout 调用成功')
                     return 2
@@ -31,7 +32,7 @@ class JcLogout(Base):
                     self.state = 2
         elif self.state == 2:
             if data:
-                print(self.TAG, 'data=', data)
+                self.showData(data)
                 if data['type'] == 'callback' and data['method'] == 'onLogout':
                     self.log('logout 成功')
                     return 1

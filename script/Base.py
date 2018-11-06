@@ -1,6 +1,7 @@
 import json
-from abc import ABC, abstractmethod
+import logging
 import time
+from abc import ABC, abstractmethod
 
 
 class Base(ABC):
@@ -22,10 +23,14 @@ class Base(ABC):
         self.beginTime = time.time()
 
     def log(self, content):
-        print(self.TAG, self.state, content)
+        if content:
+            print(self.TAG, self.state, content)
+            logging.info(self.TAG + content)
 
     def showData(self, data):
-        print(self.TAG, 'data=', data)
+        if data:
+            print(self.TAG, data)
+            logging.info(data)
 
     def creatCommand(self, command):
         """

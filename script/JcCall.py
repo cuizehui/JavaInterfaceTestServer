@@ -1,11 +1,12 @@
-from script.Base import Base
 import json
+
+from script.Base import Base
 
 
 class JcCall(Base):
 
     def __init__(self, sendData):
-        Base.__init__(self, sendData)
+        super().__init__(sendData)
         self.TAG = 'JcCall'
         self.callitem = {}
 
@@ -105,7 +106,7 @@ class JcCall(Base):
                         self.sendData(self.creatCommand(
                             command=["command", "call", "audioRecord",
                                      [{"callitem": data['arg0']}, {"bool": True}, {
-                                         "string": '/storage/emulated/0/juphoon_cloud/audio_record/test100_20181018191547.wmv'}],
+                                         "string": '/storage/emulated/0/juphoon_cloud/audio_record/test100.wmv'}],
                                      "bool"]))
                         self.log('调用 audioRecord true 命令')
                         self.state += 1
@@ -238,7 +239,7 @@ class JcCall(Base):
 
         elif self.state == 20:
             if data:
-                print(self.TAG, 'data=', data)
+                self.showData(data)
                 if self.waitCallBack(data, 'onCallItemRemove'):
                     self.log('term 成功')
                     return 1
